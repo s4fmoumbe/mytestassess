@@ -11,18 +11,35 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      # 1. Checkout the repository
       - uses: actions/checkout@v3
+
+      # 2. Set up Node.js environment
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm init -y
-      - run: npm install
-      - run: npm test
+
+      # 3. Install dependencies from package.json
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Run tests defined in package.json
+      - name: Run Tests
+        run: npm test
+
+      # Optional: Archive test results or generate coverage report (if applicable)
+      - name: Upload Test Results (optional)
+        if: always()
+        run: |
+          echo "No test result storage setup; configure as needed."
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     if: success()
     steps:
-      - run: echo "Deploying to staging pipeline..."
-      # Add your deployment steps here
+      # 1. Deployment Step
+      - name: Deploy to Staging
+        run: echo "Deploying to staging pipeline..."
+      # Add your actual deployment steps here
+
