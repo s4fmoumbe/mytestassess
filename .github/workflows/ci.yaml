@@ -23,5 +23,5 @@ jobs:
     runs-on: ubuntu-latest
     if: success()
     steps:
-      - run: echo "Deploying to staging..."
+      - run: echo "Deploying to staging pipeline..."
       # Add your deployment steps here
