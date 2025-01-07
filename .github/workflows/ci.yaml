@@ -6,40 +6,48 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       # 1. Checkout the repository
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       # 2. Set up Node.js environment
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '16' # Adjust based on your project requirements
 
-      # 3. Install dependencies from package.json
+      # 3. Show the package.json file (for debugging)
+      - name: Show package.json
+        run: cat package.json
+
+      # 4. Install dependencies
       - name: Install Dependencies
         run: npm install
 
-      # 4. Run tests defined in package.json
+      # 5. Run tests
       - name: Run Tests
         run: npm test
-
-      # Optional: Archive test results or generate coverage report (if applicable)
-      - name: Upload Test Results (optional)
-        if: always()
-        run: |
-          echo "No test result storage setup; configure as needed."
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: success()
+    if: success() # Only deploy if the test job passes
     steps:
-      # 1. Deployment Step
+      # 1. Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Deployment Step
       - name: Deploy to Staging
         run: echo "Deploying to staging pipeline..."
-      # Add your actual deployment steps here
+      # Add actual deployment commands here
+
 
