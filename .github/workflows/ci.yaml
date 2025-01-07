@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16' # Adjust based on your project requirements
+      - name: Install package.json
+        run: npm init -y
 
       # 3. Show the package.json file (for debugging)
       - name: Show package.json
