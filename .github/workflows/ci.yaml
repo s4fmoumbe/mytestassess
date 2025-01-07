@@ -25,6 +25,8 @@ jobs:
           node-version: '16' # Adjust based on your project requirements
       - name: Install package.json
         run: npm init -y
+      - name: testing framework
+        run: npm install --save-dev jest
 
       # 3. Show the package.json file (for debugging)
       - name: Show package.json
